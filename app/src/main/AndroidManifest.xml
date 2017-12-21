@@ -28,6 +28,7 @@
         <receiver android:name=".broadcast.KeepLiveReceiver" />
 
         <service android:name=".service.KeepLiveService" />
+        <service android:name=".service.KeepLiveService$InnerService" />
     </application>
 
 </manifest>

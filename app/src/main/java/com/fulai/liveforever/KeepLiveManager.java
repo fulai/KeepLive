@@ -1,10 +1,15 @@
 package com.fulai.liveforever;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
+import android.util.Log;
 
 import com.fulai.liveforever.activity.KeepLiveActivity;
+import com.fulai.liveforever.service.KeepLiveService;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -15,6 +20,7 @@ import java.util.List;
  */
 
 public class KeepLiveManager {
+    private static final String TAG = "KeepLiveManager";
     private static KeepLiveManager keepLiveManager;
     private Context context;
     private List<WeakReference<Activity>> refActivityList = new ArrayList<>();
@@ -52,6 +58,21 @@ public class KeepLiveManager {
             if (refActivity != null && refActivity.get() != null) {
                 Activity activity = refActivity.get();
                 activity.finish();
+            }
+        }
+    }
+
+    public void startForground(KeepLiveService keepLiveService, Service service) {
+        int id = 1;
+        if (keepLiveService != null) {
+            Log.i(TAG, "keepLiveService startForground");
+            keepLiveService.startForeground(id, new Notification());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                if (service != null) {
+                    Log.i(TAG, "Inner service startForground");
+                    service.startForeground(id, new Notification());
+                    service.stopSelf();
+                }
             }
         }
     }
