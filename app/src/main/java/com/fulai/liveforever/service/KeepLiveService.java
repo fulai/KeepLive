@@ -46,7 +46,7 @@ public class KeepLiveService extends Service {
         Intent intentService = new Intent(this, InnerService.class);
         startService(intentService);
 //        startForeground(1,new Notification());
-        return super.onStartCommand(intent, flags, startId);
+        return START_STICKY;
     }
 
     @Override

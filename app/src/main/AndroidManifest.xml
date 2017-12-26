@@ -29,6 +29,9 @@
 
         <service android:name=".service.KeepLiveService" />
         <service android:name=".service.KeepLiveService$InnerService" />
+        <service
+            android:name=".service.JobServiceImpl"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
     </application>
 
 </manifest>
